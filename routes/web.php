@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\MarkDownMail;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -56,4 +57,21 @@ Route::get('/markdown', function () {
 
     Mail::to('user3@gmail.com','shamim hossain')->send(new MarkDownMail($data));
     echo 'main mail send successful';
+});
+
+
+#clear all cache 
+Route::get('clear-cache',function(){
+    Artisan::call('cache:clear');
+
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+
+    Artisan::call('route:cache');
+    Artisan::call('route:clear');
+
+    Artisan::call('view:cache');
+    Artisan::call('view:clear');
+
+    echo 'all cache cleared';
 });
